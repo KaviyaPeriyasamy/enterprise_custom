@@ -149,7 +149,6 @@ class GrossProfitGenerator(object):
 				`tabSales Invoice` si, `tabSales Invoice Item` si_item
 			where
 				si.name = si_item.parent
-				and si.docstatus = 1
 				and si.is_return = 1
 		""", as_dict=1)
 
@@ -231,7 +230,7 @@ class GrossProfitGenerator(object):
 		last_purchase_rate = frappe.db.sql("""
 		select (a.base_rate / a.conversion_factor)
 		from `tabPurchase Invoice Item` a
-		where a.item_code = %s and a.docstatus=1
+		where a.item_code = %s
 		{0}
 		order by a.modified desc limit 1""".format(condition), item_code)
 
@@ -277,7 +276,7 @@ class GrossProfitGenerator(object):
 					on `inv_item`.parent = si.name
 				{sales_team_table}
 			where
-				`si`.docstatus=1 and `si`.is_opening!='Yes' {conditions} {match_cond}
+				`si`.is_opening!='Yes' {conditions} {match_cond}
 			order by
 				`si`.posting_date desc, `si`.posting_time desc"""
 			.format(inv_name = inv_name, conditions=conditions, sales_person_cols=sales_person_cols,
@@ -304,7 +303,7 @@ class GrossProfitGenerator(object):
 
 		for d in frappe.db.sql("""select parenttype, parent, parent_item,
 			item_code, warehouse, -1*qty as total_qty, parent_detail_docname
-			from `tabPacked Item` where docstatus=1""", as_dict=True):
+			from `tabPacked Item`""", as_dict=True):
 			self.product_bundles.setdefault(d.parenttype, frappe._dict()).setdefault(d.parent,
 				frappe._dict()).setdefault(d.parent_item, []).append(d)
 
