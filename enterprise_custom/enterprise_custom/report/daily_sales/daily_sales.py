@@ -37,7 +37,7 @@ def get_columns(group_wise_columns, filters):
 	columns = []
 	column_map = frappe._dict({
 		"parent": _("Invoice") + ":Dynamic Link/parenttype:120",
-		"item_group": _("Product") + ":Link/Item Group:200",
+		"sub_group": _("Product") + ":Link/Item Group:200",
 		"qty": _("Qty") + ":Float:200",
 		"base_amount": _("Total Value") + ":Currency/currency:200"
 	})
