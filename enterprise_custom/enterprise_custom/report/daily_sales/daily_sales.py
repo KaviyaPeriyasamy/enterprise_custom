@@ -18,7 +18,7 @@ def execute(filters=None):
 	data = []
 
 	group_wise_columns = frappe._dict({
-		"item_group": ["item_group", "qty", "base_amount"]
+		"item_group": ["sub_group", "qty", "base_amount"]
 	})
 
 	columns = get_columns(group_wise_columns, filters)
