@@ -1,5 +1,5 @@
 {
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2021-05-07 11:36:28.289101",
  "disable_prepared_report": 0,
@@ -9,7 +9,7 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2021-05-07 13:36:01.386196",
+ "modified": "2021-05-07 13:44:08.378816",
  "modified_by": "Administrator",
  "module": "Enterprise Custom",
  "name": "Daily Sales",
