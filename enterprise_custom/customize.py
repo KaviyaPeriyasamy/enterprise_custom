@@ -23,6 +23,6 @@ class ERPNextItem(Item):
 				"price_list": price_list,
 				"item_code": self.name,
 				"currency": erpnext.get_default_currency(),
-				"price_list_rate": self.standard_rate * self.total_square_feet if self.item_group == 'DOORS' else self.standard_rate
+				"price_list_rate": self.standard_rate * self.total_square_feet if self.item_group == 'DOORS' and self.total_square_feet else self.standard_rate
 			})
 			item_price.insert()
