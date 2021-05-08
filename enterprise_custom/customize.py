@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 import frappe
+import erpnext
 from erpnext.stock.doctype.item.item import Item
 
 def update_item_price(doc, action):
