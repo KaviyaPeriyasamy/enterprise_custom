@@ -7,7 +7,7 @@ import erpnext
 from erpnext.stock.doctype.item.item import Item
 
 def update_item_price(doc, action):
-	if doc.total_square_feet and not doc.standard_rate and doc.item_group == 'DOORS':
+	if doc.total_square_feet and doc.item_group == 'DOORS':
 		price_list_rate = frappe.db.get_value('Item Price', {'item_code': doc.name, 'selling':1}, 'price_list_rate')
 		frappe.db.set_value('Item Price',{'item_code': doc.name, 'selling':1},'price_list_rate',price_list_rate * doc.total_square_feet)
 
