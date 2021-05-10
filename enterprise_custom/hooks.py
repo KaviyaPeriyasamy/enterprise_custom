@@ -87,10 +87,6 @@ override_doctype_class = {
 	"Item": "enterprise_custom.customize.ERPNextItem"
 }
 
-doctype_js = {
-"Sales Invoice" : "enterprise_custom/customize.js",
-}
-
 # Document Events
 # ---------------
 # Hook on document methods and events
