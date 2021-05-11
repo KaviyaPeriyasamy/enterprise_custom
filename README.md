@@ -2,6 +2,12 @@
 
 Customize reports and doctypes
 
-#### License
+**Note:
+Refer for qty, rate column change:
+erpnext/erpnext/public/js/controllers/taxes_and_totals.js
+```if(item.sqft){
+item.amount = flt(item.rate * item.qty * item.sqft, precision("amount", item));
+}
+else{
+item.amount = flt(item.rate * item.qty, precision("amount", item));```
 
-MIT
