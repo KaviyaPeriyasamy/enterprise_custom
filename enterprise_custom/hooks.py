@@ -83,19 +83,19 @@ app_license = "MIT"
 # ---------------
 # Override standard doctype classes
 
-override_doctype_class = {
-	"Item": "enterprise_custom.customize.ERPNextItem"
-}
+# override_doctype_class = {
+# 	"Item": "enterprise_custom.customize.ERPNextItem"
+# }
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-doc_events = {
-	"Item": {
-		"validate": "enterprise_custom.customize.update_item_price"
-	}
-}
+# doc_events = {
+# 	"Item": {
+# 		"validate": "enterprise_custom.customize.update_item_price"
+#   }
+# }
 
 # Scheduled Tasks
 # ---------------
