@@ -11,4 +11,9 @@ class ItemAttributeDetails(Document):
 
 @frappe.whitelist()
 def get_item_attribute(item):
-	return frappe.db.get_value('Item Attribute Details', {'parent':item, 'enabled':1}, 'attribute')
+	attribute_list = frappe.db.get_list('Item Attribute Details', {'parent':item, 'enabled':1}, ['attribute'])
+	attr_list = [row['attribute'] for row in attribute_list]
+	if len(attr_list) < 5:
+		for i in range(0, 5-len(attr_list)):
+			attr_list.append('')
+	return attr_list
