@@ -1,38 +1,41 @@
 {
  "actions": [],
- "autoname": "field:attribute",
- "creation": "2021-05-14 21:15:32.578155",
+ "creation": "2021-05-14 21:47:33.599337",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "attribute",
-  "enabled"
+  "enabled",
+  "date"
  ],
  "fields": [
   {
-   "columns": 2,
    "fieldname": "attribute",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Attribute",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
-   "columns": 2,
    "default": "0",
    "fieldname": "enabled",
    "fieldtype": "Check",
    "in_list_view": 1,
-   "label": "Enabled",
-   "reqd": 1
+   "label": "Enabled"
+  },
+  {
+   "default": "Now",
+   "fieldname": "date",
+   "fieldtype": "Datetime",
+   "in_list_view": 1,
+   "label": "Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-05-14 21:22:50.305230",
+ "modified": "2021-05-15 10:47:32.711709",
  "modified_by": "Administrator",
  "module": "Enterprise Custom",
  "name": "Item Attribute Details",
