@@ -77,7 +77,7 @@ class GrossProfitGenerator(object):
 		self.float_precision = cint(frappe.db.get_default("float_precision")) or 2
 
 		for row in self.si_list:
-			row.base_amount = flt(row.base_net_amount, self.currency_precision)
+			row.base_amount = flt(row.base_amount, self.currency_precision)
 			row.sub_group = frappe.db.get_value('Item', row.item_code, 'sub_group')
 			self.grouped.setdefault(row.get('sub_group'), []).append(row)
 
@@ -124,7 +124,7 @@ class GrossProfitGenerator(object):
 				`inv_item`.warehouse, `inv_item`.item_group,
 				`inv_item`.brand, `inv_item`.dn_detail,
 				`inv_item`.delivery_note, `inv_item`.stock_qty as qty,
-				`inv_item`.base_net_rate, `inv_item`.base_net_amount,
+				`inv_item`.base_net_rate, `inv_item`.base_amount,
 				`inv_item`.name as "item_row", `si`.is_return,
 				`inv_item`.cost_center
 				{sales_person_cols}
