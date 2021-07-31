@@ -13,3 +13,6 @@ item.amount = flt(item.rate * item.qty * item.sqft, precision("amount", item));
 else{
 item.amount = flt(item.rate * item.qty, precision("amount", item));```
 
+
+Also edit taxes_and_totals.py
+
