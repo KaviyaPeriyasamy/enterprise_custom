@@ -66,11 +66,6 @@ class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 						update_item_wise_tax_detail(t, tax)
 						found = True
 				if not found:
-					tax.charge_type = 'Actual'
-					tax.included_in_print_rate = 0
-					tax.tax_amount = tax.tax_amount_after_discount_amount
-					tax.base_tax_amount = tax.base_tax_amount_after_discount_amount
-					tax.item_wise_tax_detail = tax.item_wise_tax_detail
 					taxes.append(tax)
 
 			for payment in doc.get('payments'):
