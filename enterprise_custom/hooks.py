@@ -83,9 +83,9 @@ app_license = "MIT"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"Item": "enterprise_custom.customize.ERPNextItem"
-# }
+override_doctype_class = {
+	"POS Invoice Merge Log": "enterprise_custom.customize.ERPNextPOSInvoiceMergeLog"
+}
 
 # Document Events
 # ---------------
