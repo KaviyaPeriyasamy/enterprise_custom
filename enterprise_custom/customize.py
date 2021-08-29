@@ -34,7 +34,7 @@ class ERPNextItem(Item):
 class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 	def merge_pos_invoice_into(self, invoice, data):
 		items, payments, taxes = [], [], []
-		loyalty_amount_sum, loyalty_points_sum = 0, 0
+		loyalty_amount_sum, loyalty_points_sum, discount_amt = 0, 0, 0
 		for doc in data:
 			map_doc(doc, invoice, table_map={ "doctype": invoice.doctype })
 
@@ -46,7 +46,7 @@ class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 			
 			invoice.apply_discount_on = doc.apply_discount_on
 			invoice.additional_discount_percentage = doc.additional_discount_percentage
-			invoice.discount_amount = doc.discount_amount
+			discount_amt += doc.discount_amount
 
 			for item in doc.get('items'):
 				found = False
@@ -86,12 +86,13 @@ class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 			invoice.redeem_loyalty_points = 1
 			invoice.loyalty_points = loyalty_points_sum
 			invoice.loyalty_amount = loyalty_amount_sum
-
+		
+		if discount_amt:
+			invoice.discount_amount = discount_amt
+		
 		invoice.set('items', items)
 		invoice.set('payments', payments)
 		invoice.set('taxes', taxes)
-		invoice.additional_discount_percentage = 0
-		invoice.discount_amount = 0.0
 		invoice.taxes_and_charges = None
 		invoice.ignore_pricing_rule = 1
 
