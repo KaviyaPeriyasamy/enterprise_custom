@@ -47,6 +47,7 @@ class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 			invoice.apply_discount_on = doc.apply_discount_on
 			invoice.additional_discount_percentage = doc.additional_discount_percentage
 			invoice.discount_amount = doc.discount_amount
+			invoice.net_total = doc.net_total
 
 			for item in doc.get('items'):
 				found = False
@@ -90,8 +91,6 @@ class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 		invoice.set('items', items)
 		invoice.set('payments', payments)
 		invoice.set('taxes', taxes)
-		invoice.additional_discount_percentage = 0
-		invoice.discount_amount = 0.0
 		invoice.taxes_and_charges = None
 		invoice.ignore_pricing_rule = 1
 
