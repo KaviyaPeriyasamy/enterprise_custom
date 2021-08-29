@@ -43,6 +43,10 @@ class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 				invoice.loyalty_redemption_cost_center = doc.loyalty_redemption_cost_center
 				loyalty_points_sum += doc.loyalty_points
 				loyalty_amount_sum += doc.loyalty_amount
+			
+			invoice.apply_discount_on = doc.apply_discount_on
+			invoice.additional_discount_percentage = doc.additional_discount_percentage
+			invoice.discount_amount = doc.discount_amount
 
 			for item in doc.get('items'):
 				found = False
