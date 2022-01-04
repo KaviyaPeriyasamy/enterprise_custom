@@ -30,6 +30,8 @@ class ERPNextItem(Item):
 				"price_list_rate": self.standard_rate * self.total_square_feet if self.item_group == 'DOORS' and self.total_square_feet else self.standard_rate
 			})
 			item_price.insert()
+	
+	def validate():
 
 class ERPNextPOSInvoiceMergeLog(POSInvoiceMergeLog):
 	def merge_pos_invoice_into(self, invoice, data):
