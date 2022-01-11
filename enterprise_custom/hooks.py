@@ -91,11 +91,15 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
 # 	"Item": {
 # 		"validate": "enterprise_custom.customize.update_item_price"
 #   }
-# }
+
+doc_events = {
+	"Sales Invoice": {
+		"on_submit": "enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_dn_records"
+  	}
+}
 
 # Scheduled Tasks
 # ---------------
