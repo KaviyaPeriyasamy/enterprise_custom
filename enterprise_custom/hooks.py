@@ -95,9 +95,12 @@ override_doctype_class = {
 # 		"validate": "enterprise_custom.customize.update_item_price"
 #   }
 
+# "enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_dn_records",
 doc_events = {
 	"Sales Invoice": {
-		"on_submit": "enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_dn_records"
+		"on_submit": [
+					"enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_godown_slip"],
+		"validate": "enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_godown_slip"
   	}
 }
 
