@@ -36,7 +36,7 @@ def create_godown_slip(doc, action):
             godown_doc.append('items', {'item_code': row.item_code, 'item_name': row.item_name,
             'description': row.description, 'uom': row.uom, 'qty': row.qty})
         godown_doc.save()
-    if doc.invoice_type == 'Credit Invoice' and action == 'validate':
+    if doc.invoice_type == 'Credit Invoice' and ((action == 'validate' and not doc.is_new())or action == 'after_insert'):
         gs_doc = frappe.db.get_value('Gudown Slip', {'sales_invoice': doc.name})
         if gs_doc:
             godown_doc = frappe.get_doc('Gudown Slip', gs_doc)

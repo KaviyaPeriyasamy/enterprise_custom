@@ -100,6 +100,7 @@ doc_events = {
 	"Sales Invoice": {
 		"on_submit": [
 					"enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_godown_slip"],
+		"after_insert": "enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_godown_slip",
 		"validate": "enterprise_custom.enterprise_custom.custom.python.sales_invoice.create_godown_slip"
   	}
 }
