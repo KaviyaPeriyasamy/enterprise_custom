@@ -25,39 +25,53 @@ from frappe import _
 
 
 def create_godown_slip(doc, action):
-    if doc.invoice_type == 'Cash Invoice' and action == 'on_submit':
-        godown_doc = frappe.new_doc('Gudown Slip')
-        godown_doc.date = doc.posting_date
-        godown_doc.sales_invoice = doc.name
-        godown_doc.customer = doc.customer
-        godown_doc.customer_name = doc.customer_name
-        godown_doc.items = []
-        for row in doc.items:
-            godown_doc.append('items', {'item_code': row.item_code, 'item_name': row.item_name,
-            'description': row.description, 'uom': row.uom, 'qty': row.qty})
-        godown_doc.save()
-    if doc.invoice_type == 'Credit Invoice' and ((action == 'validate' and not doc.is_new())or action == 'after_insert'):
-        gs_doc = frappe.db.get_value('Gudown Slip', {'sales_invoice': doc.name})
-        if gs_doc:
-            godown_doc = frappe.get_doc('Gudown Slip', gs_doc)
-            godown_doc.date = doc.posting_date
-            godown_doc.sales_invoice = doc.name
-            godown_doc.customer = doc.customer
-            godown_doc.customer_name = doc.customer_name
-            godown_doc.items = []
-            for row in doc.items:
-                godown_doc.append('items', {'item_code': row.item_code, 'item_name': row.item_name,
-                'description': row.description, 'uom': row.uom, 'qty': row.qty})
-            godown_doc.save()
+    item_group_dict = {}
+    for row in doc.items:
+        if not row.item_group in item_group_dict:
+            item_group_dict[row.item_group] = [row.item_code]
         else:
+            item_group_dict[row.item_group].append(row.item_code)
+    if doc.invoice_type == 'Cash Invoice' and action == 'on_submit':
+        for row1 in item_group_dict:
             godown_doc = frappe.new_doc('Gudown Slip')
             godown_doc.date = doc.posting_date
             godown_doc.sales_invoice = doc.name
             godown_doc.customer = doc.customer
             godown_doc.customer_name = doc.customer_name
             godown_doc.items = []
-            for row in doc.items:
-                godown_doc.append('items', {'item_code': row.item_code, 'item_name': row.item_name,
-                'description': row.description, 'uom': row.uom, 'qty': row.qty})
+            for row2 in doc.items:
+                if row2.item_code in item_group_dict[row1]:
+                    godown_doc.append('items', {'item_code': row2.item_code, 'item_name': row2.item_name,
+                    'description': row2.description, 'uom': row2.uom, 'qty': row2.qty})
             godown_doc.save()
+    if doc.invoice_type == 'Credit Invoice' and ((action == 'validate' and not doc.is_new())or action == 'after_insert'):
+        gs_doc_list = frappe.db.get_list('Gudown Slip', {'sales_invoice': doc.name})
+        if gs_doc_list:
+            for gs_doc in gs_doc_list:
+                frappe.delete_doc("Gudown Slip", gs_doc['name'])
+            for row1 in item_group_dict:
+                godown_doc = frappe.new_doc('Gudown Slip')
+                godown_doc.date = doc.posting_date
+                godown_doc.sales_invoice = doc.name
+                godown_doc.customer = doc.customer
+                godown_doc.customer_name = doc.customer_name
+                godown_doc.items = []
+                for row2 in doc.items:
+                    if row2.item_code in item_group_dict[row1]:
+                        godown_doc.append('items', {'item_code': row2.item_code, 'item_name': row2.item_name,
+                        'description': row2.description, 'uom': row2.uom, 'qty': row2.qty})
+                godown_doc.save()
+        else:
+            for row1 in item_group_dict:
+                godown_doc = frappe.new_doc('Gudown Slip')
+                godown_doc.date = doc.posting_date
+                godown_doc.sales_invoice = doc.name
+                godown_doc.customer = doc.customer
+                godown_doc.customer_name = doc.customer_name
+                godown_doc.items = []
+                for row2 in doc.items:
+                    if row2.item_code in item_group_dict[row1]:
+                        godown_doc.append('items', {'item_code': row2.item_code, 'item_name': row2.item_name,
+                        'description': row2.description, 'uom': row2.uom, 'qty': row2.qty})
+                godown_doc.save()
 
