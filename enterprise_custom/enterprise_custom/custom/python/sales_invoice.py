@@ -36,7 +36,7 @@ def create_godown_slip(doc, action):
                 item_group_dict[subgroup].append(row.item_code)
         else:
             item_group_dict[row.item_group].append(row.item_code)
-    if doc.invoice_type == 'Cash Invoice' and action == 'on_submit':
+    if doc.custom_invoice_type == 'CASH INVOICE' and action == 'on_submit':
         links = ''
         for row1 in item_group_dict:
             godown_doc = frappe.new_doc('Gudown Slip')
@@ -57,7 +57,7 @@ def create_godown_slip(doc, action):
         if links:
             frappe.msgprint(_(f"Gudown Slip(s) {links} Created"))
 
-    if doc.invoice_type == 'Credit Invoice' and ((action == 'validate' and not doc.is_new())or action == 'after_insert'):
+    if doc.custom_invoice_type == 'CREDIT INVOICE' and ((action == 'validate' and not doc.is_new())or action == 'after_insert'):
         gs_doc_list = frappe.db.get_list('Gudown Slip', {'sales_invoice': doc.name})
         links = ''
         if gs_doc_list:
